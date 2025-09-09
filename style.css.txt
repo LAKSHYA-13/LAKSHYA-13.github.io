@@ -1,0 +1,130 @@
+@import url('https://fonts.googleapis.com/css2?family=Pacifico&display=swap');
+
+body {
+    margin: 0;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    background: linear-gradient(135deg, #ff9a9e 0%, #fad0c4 99%, #fad0c4 100%);
+    color: #333;
+    overflow: hidden; /* Prevent scrollbar when button moves */
+    position: relative;
+}
+
+.container {
+    background-color: rgba(255, 255, 255, 0.9); /* Slightly transparent */
+    padding: 30px 40px;
+    border-radius: 20px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1), 0 0 40px rgba(233, 30, 99, 0.4); /* Added pink glow */
+    text-align: center;
+    max-width: 600px;
+    width: 90%;
+    position: relative;
+    overflow: hidden;
+    z-index: 10;
+}
+
+h1 {
+    font-family: 'Pacifico', cursive; /* Cute new font */
+    color: #e91e63;
+    margin-bottom: 30px;
+    font-size: 2.5em;
+    font-weight: normal;
+}
+
+/* --- Styles from before (no changes needed below this line for these) --- */
+.question-card, .result-card { transition: all 0.5s ease-in-out; }
+.question-card p { font-size: 1.3em; margin-bottom: 20px; color: #555; }
+.buttons { display: flex; justify-content: center; gap: 20px; }
+button { padding: 12px 25px; font-size: 1.1em; border: none; border-radius: 30px; cursor: pointer; transition: all 0.3s ease; font-weight: bold; box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1); }
+.yes-btn { background-color: #4CAF50; color: white; }
+.yes-btn:hover { background-color: #45a049; transform: translateY(-3px); }
+.no-btn { background-color: #f44336; color: white; }
+.no-btn:hover { background-color: #da190b; transform: translateY(-3px); }
+.final-yes { background-color: #e91e63; font-size: 1.5em; padding: 15px 35px; }
+.final-yes:hover { background-color: #c2185b; }
+.final-no { position: absolute; top: auto; left: auto; background-color: #f44336; font-size: 1.1em; padding: 12px 25px; transition: transform 0.1s ease-out; min-width: 80px; }
+.final-no:hover { background-color: #f44336; transform: none; }
+.hidden { display: none; }
+.result-card h2 { color: #e91e63; font-size: 2.5em; margin-bottom: 20px; }
+.result-card p { font-size: 1.4em; color: #555; margin-bottom: 30px; }
+.result-gif { max-width: 100%; height: auto; border-radius: 10px; box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1); }
+.no-result h2 { color: #ff9800; }
+.question-gif { max-width: 80%; height: auto; border-radius: 10px; margin-top: 20px; margin-bottom: 20px; box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1); }
+
+
+/* --- NEW FLOATING HEARTS STYLES --- */
+#heart-container {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    z-index: 1; /* Behind the main container */
+}
+
+.heart {
+    position: absolute;
+    width: 20px;
+    height: 20px;
+    background-color: #ff5e7b; /* A lovely pink */
+    transform: rotate(-45deg);
+    animation: float 10s infinite ease-in-out, breathe 2s infinite ease-in-out;
+}
+
+.heart::before,
+.heart::after {
+    content: '';
+    position: absolute;
+    width: 20px;
+    height: 20px;
+    background-color: #ff5e7b;
+    border-radius: 50%;
+}
+
+.heart::before {
+    top: -10px;
+    left: 0;
+}
+
+.heart::after {
+    top: 0;
+    left: 10px;
+}
+
+/* NEW BROKEN HEART STYLES */
+.heart.broken {
+    animation: fall 1.5s ease-in forwards; /* Apply falling animation */
+    background-color: #8c2a3e; /* Darker, "broken" color */
+}
+
+.heart.broken::before,
+.heart.broken::after {
+    background-color: #8c2a3e;
+}
+
+
+/* --- NEW KEYFRAME ANIMATIONS --- */
+@keyframes float {
+    0% { transform: translateY(110vh) rotate(-45deg); }
+    100% { transform: translateY(-10vh) rotate(-45deg); }
+}
+
+@keyframes breathe {
+    0%, 100% { transform: scale(1) rotate(-45deg); }
+    50% { transform: scale(1.1) rotate(-45deg); }
+}
+
+@keyframes fall {
+    0% {
+        transform: translateY(var(--start-y)) rotate(var(--start-rot));
+        opacity: 1;
+    }
+    100% {
+        transform: translateY(110vh) rotate(720deg); /* Fall down while spinning */
+        opacity: 0;
+    }
+}

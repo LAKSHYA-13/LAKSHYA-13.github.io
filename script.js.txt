@@ -1,0 +1,138 @@
+const questionCards = document.querySelectorAll('.question-card');
+let currentQuestionIndex = 0;
+const audioPlayer = document.getElementById('audioPlayer');
+const heartContainer = document.getElementById('heart-container');
+const NUM_HEARTS = 30; // How many hearts to show
+
+function playAudio(audioSrc) {
+    if (audioSrc && audioSrc.includes('http')) {
+        audioPlayer.src = audioSrc;
+        audioPlayer.play().catch(e => console.error("Audio play failed:", e));
+    } else {
+        console.log("No valid audio source provided.");
+    }
+}
+
+// --- NEW HEART FUNCTIONS ---
+
+// Function to create hearts
+function createHearts() {
+    heartContainer.innerHTML = ''; // Clear old hearts
+    for (let i = 0; i < NUM_HEARTS; i++) {
+        const heart = document.createElement('div');
+        heart.classList.add('heart');
+        
+        // Randomize position, size, and animation
+        const size = Math.random() * 20 + 10; // Size between 10px and 30px
+        heart.style.width = `${size}px`;
+        heart.style.height = `${size}px`;
+        heart.style.left = `${Math.random() * 100}vw`;
+        
+        const floatDuration = Math.random() * 5 + 5; // Duration between 5s and 10s
+        const breatheDuration = Math.random() * 2 + 1; // Duration between 1s and 3s
+        heart.style.animation = `float ${floatDuration}s infinite ease-in-out, breathe ${breatheDuration}s infinite ease-in-out`;
+        
+        // Stagger the start of the animation
+        heart.style.animationDelay = `${Math.random() * 5}s`;
+        
+        heartContainer.appendChild(heart);
+    }
+}
+
+// Function to break hearts
+function breakHearts() {
+    const hearts = document.querySelectorAll('.heart');
+    hearts.forEach(heart => {
+        // We need to capture the current position to make the fall look natural
+        const rect = heart.getBoundingClientRect();
+        heart.style.setProperty('--start-y', `${rect.top}px`);
+        heart.style.setProperty('--start-rot', getComputedStyle(heart).transform);
+        heart.classList.add('broken');
+    });
+}
+
+// New handler for the first four "No" buttons
+function handleNoClick(audioSrc) {
+    playAudio(audioSrc);
+    breakHearts();
+    // Wait for the fall animation to finish before going to the next question
+    setTimeout(() => {
+        nextQuestion(); // Call nextQuestion without audio, as it's already played
+    }, 1500); // 1.5 seconds, matches the fall animation duration
+}
+
+
+// --- UPDATED MAIN FUNCTIONS ---
+
+function nextQuestion(audioSrc) {
+    if (audioSrc) {
+        playAudio(audioSrc); // Play audio if this was called by a "Yes" button
+    }
+    
+    questionCards[currentQuestionIndex].classList.add('hidden');
+    currentQuestionIndex++;
+
+    if (currentQuestionIndex < questionCards.length) {
+        questionCards[currentQuestionIndex].classList.remove('hidden');
+        if (questionCards[currentQuestionIndex].classList.contains('final-question')) {
+            setTimeout(setInitialNoButtonPosition, 10);
+        }
+        
+        // Respawn hearts for the new question
+        setTimeout(createHearts, 500); // Small delay for a smooth transition
+    }
+}
+
+function showResult(answer, audioSrc) {
+    playAudio(audioSrc);
+    // If they manage to click the final "No", break the hearts one last time
+    if(answer === 'no') {
+        breakHearts();
+    }
+    questionCards[currentQuestionIndex].classList.add('hidden');
+
+    if (answer === 'yes') {
+        document.querySelector('.result-card:not(.no-result)').classList.remove('hidden');
+    } else {
+        document.querySelector('.result-card.no-result').classList.remove('hidden');
+    }
+}
+
+
+// --- UNCHANGED FUNCTIONS ---
+function setInitialNoButtonPosition() {
+    const finalQuestionCard = document.querySelector('.final-question');
+    const finalNoButton = finalQuestionCard.querySelector('.final-no');
+    const yesButton = finalQuestionCard.querySelector('.final-yes');
+    const containerRect = finalQuestionCard.getBoundingClientRect();
+    const yesButtonRect = yesButton.getBoundingClientRect();
+    finalNoButton.style.position = 'absolute';
+    finalNoButton.style.left = `${yesButtonRect.right + 20 - containerRect.left}px`;
+    finalNoButton.style.top = `${yesButtonRect.top - containerRect.top}px`;
+    finalNoButton.style.transform = 'translate(0, 0)';
+    finalNoButton.style.transition = 'transform 0.1s ease-out, top 0.1s ease-out, left 0.1s ease-out';
+}
+
+function runAway(button) {
+    const container = button.closest('.buttons');
+    if (!container) return;
+    const containerRect = container.getBoundingClientRect();
+    const buttonRect = button.getBoundingClientRect();
+    const maxMoveX = containerRect.width - buttonRect.width;
+    const maxMoveY = containerRect.height - buttonRect.height;
+    let newX = Math.random() * maxMoveX;
+    let newY = Math.random() * maxMoveY;
+    button.style.left = `${newX}px`;
+    button.style.top = `${newY}px`;
+}
+
+
+// --- INITIALIZE ON PAGE LOAD ---
+document.addEventListener('DOMContentLoaded', () => {
+    createHearts(); // Create the initial set of hearts
+    
+    const finalQuestionCard = document.querySelector('.final-question');
+    if (finalQuestionCard && !finalQuestionCard.classList.contains('hidden')) {
+        setInitialNoButtonPosition();
+    }
+});
