@@ -7,7 +7,7 @@ body {
     color: #333;
     position: relative;
     min-height: 100vh;
-    overflow: hidden; /* We can add this back now to prevent any scrollbars */
+    /* The "overflow: hidden;" line that was here has been REMOVED. */
 }
 
 .container {
