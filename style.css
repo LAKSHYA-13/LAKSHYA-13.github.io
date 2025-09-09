@@ -13,10 +13,10 @@ body {
 }
 
 .container {
-    background-color: rgba(255, 255, 255, 0.9); /* Slightly transparent */
+    background-color: rgba(255, 255, 255, 0.9);
     padding: 30px 40px;
     border-radius: 20px;
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1), 0 0 40px rgba(233, 30, 99, 0.4); /* Added pink glow */
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1), 0 0 40px rgba(233, 30, 99, 0.4);
     text-align: center;
     max-width: 600px;
     width: 90%;
@@ -25,7 +25,7 @@ body {
 }
 
 h1 {
-    font-family: 'Pacifico', cursive; /* Cute new font */
+    font-family: 'Pacifico', cursive;
     color: #e91e63;
     margin-bottom: 30px;
     font-size: 2.5em;
@@ -59,15 +59,14 @@ button { padding: 12px 25px; font-size: 1.1em; border: none; border-radius: 30px
     left: 0;
     width: 100%;
     height: 100%;
-    /* overflow: hidden; <-- THIS WAS THE PROBLEM */
-    z-index: 1; /* Behind the main container */
+    z-index: 1;
 }
 
 .heart {
     position: absolute;
     width: 20px;
     height: 20px;
-    background-color: #ff5e7b; /* A lovely pink */
+    background-color: #ff5e7b;
     transform: rotate(-45deg);
     animation: float 10s infinite ease-in-out, breathe 2s infinite ease-in-out;
 }
@@ -94,8 +93,8 @@ button { padding: 12px 25px; font-size: 1.1em; border: none; border-radius: 30px
 
 /* BROKEN HEART STYLES */
 .heart.broken {
-    animation: fall 1.5s ease-in forwards; /* Apply falling animation */
-    background-color: #8c2a3e; /* Darker, "broken" color */
+    animation: fall 1.5s ease-in forwards;
+    background-color: #8c2a3e;
 }
 
 .heart.broken::before,
@@ -121,7 +120,7 @@ button { padding: 12px 25px; font-size: 1.1em; border: none; border-radius: 30px
         opacity: 1;
     }
     100% {
-        transform: translateY(110vh) rotate(720deg); /* Fall down while spinning */
+        transform: translateY(110vh) rotate(720deg);
         opacity: 0;
     }
 }
