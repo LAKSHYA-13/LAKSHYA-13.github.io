@@ -113,17 +113,39 @@ function setInitialNoButtonPosition() {
     finalNoButton.style.transition = 'transform 0.1s ease-out, top 0.1s ease-out, left 0.1s ease-out';
 }
 
-function runAway(button) {
-    const container = button.closest('.buttons');
-    if (!container) return;
-    const containerRect = container.getBoundingClientRect();
-    const buttonRect = button.getBoundingClientRect();
-    const maxMoveX = containerRect.width - buttonRect.width;
-    const maxMoveY = containerRect.height - buttonRect.height;
-    let newX = Math.random() * maxMoveX;
-    let newY = Math.random() * maxMoveY;
-    button.style.left = `${newX}px`;
-    button.style.top = `${newY}px`;
+// --- NEW CONTINUOUS RUNAWAY BUTTON LOGIC ---
+
+// 1. A variable to hold our interval
+let runawayInterval = null;
+
+// 2. A function to start the button running
+function startRunning(button) {
+    // If it's already running, do nothing
+    if (runawayInterval) return;
+
+    // Start an interval that calls the move logic every 200 milliseconds
+    runawayInterval = setInterval(() => {
+        const container = button.closest('.buttons');
+        if (!container) return;
+
+        const containerRect = container.getBoundingClientRect();
+        const buttonRect = button.getBoundingClientRect();
+
+        const maxMoveX = containerRect.width - buttonRect.width;
+        const maxMoveY = containerRect.height - buttonRect.height;
+        
+        let newX = Math.random() * maxMoveX;
+        let newY = Math.random() * maxMoveY;
+
+        button.style.left = `${newX}px`;
+        button.style.top = `${newY}px`;
+    }, 200); // The button will move every 0.2 seconds
+}
+
+// 3. A function to stop the button when the mouse leaves
+function stopRunning() {
+    clearInterval(runawayInterval);
+    runawayInterval = null;
 }
 
 
