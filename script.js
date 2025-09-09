@@ -2,7 +2,7 @@ const questionCards = document.querySelectorAll('.question-card');
 let currentQuestionIndex = 0;
 const audioPlayer = document.getElementById('audioPlayer');
 const heartContainer = document.getElementById('heart-container');
-const NUM_HEARTS = 30; // How many hearts to show
+const NUM_HEARTS = 30;
 
 function playAudio(audioSrc) {
     if (audioSrc && audioSrc.includes('http')) {
@@ -13,37 +13,30 @@ function playAudio(audioSrc) {
     }
 }
 
-// --- NEW HEART FUNCTIONS ---
-
-// Function to create hearts
 function createHearts() {
-    heartContainer.innerHTML = ''; // Clear old hearts
+    heartContainer.innerHTML = '';
     for (let i = 0; i < NUM_HEARTS; i++) {
         const heart = document.createElement('div');
         heart.classList.add('heart');
         
-        // Randomize position, size, and animation
-        const size = Math.random() * 20 + 10; // Size between 10px and 30px
+        const size = Math.random() * 20 + 10;
         heart.style.width = `${size}px`;
         heart.style.height = `${size}px`;
         heart.style.left = `${Math.random() * 100}vw`;
         
-        const floatDuration = Math.random() * 5 + 5; // Duration between 5s and 10s
-        const breatheDuration = Math.random() * 2 + 1; // Duration between 1s and 3s
+        const floatDuration = Math.random() * 5 + 5;
+        const breatheDuration = Math.random() * 2 + 1;
         heart.style.animation = `float ${floatDuration}s infinite ease-in-out, breathe ${breatheDuration}s infinite ease-in-out`;
         
-        // Stagger the start of the animation
         heart.style.animationDelay = `${Math.random() * 5}s`;
         
         heartContainer.appendChild(heart);
     }
 }
 
-// Function to break hearts
 function breakHearts() {
     const hearts = document.querySelectorAll('.heart');
     hearts.forEach(heart => {
-        // We need to capture the current position to make the fall look natural
         const rect = heart.getBoundingClientRect();
         heart.style.setProperty('--start-y', `${rect.top}px`);
         heart.style.setProperty('--start-rot', getComputedStyle(heart).transform);
@@ -51,22 +44,17 @@ function breakHearts() {
     });
 }
 
-// New handler for the first four "No" buttons
 function handleNoClick(audioSrc) {
     playAudio(audioSrc);
     breakHearts();
-    // Wait for the fall animation to finish before going to the next question
     setTimeout(() => {
-        nextQuestion(); // Call nextQuestion without audio, as it's already played
-    }, 1500); // 1.5 seconds, matches the fall animation duration
+        nextQuestion();
+    }, 1500);
 }
-
-
-// --- UPDATED MAIN FUNCTIONS ---
 
 function nextQuestion(audioSrc) {
     if (audioSrc) {
-        playAudio(audioSrc); // Play audio if this was called by a "Yes" button
+        playAudio(audioSrc);
     }
     
     questionCards[currentQuestionIndex].classList.add('hidden');
@@ -78,14 +66,12 @@ function nextQuestion(audioSrc) {
             setTimeout(setInitialNoButtonPosition, 10);
         }
         
-        // Respawn hearts for the new question
-        setTimeout(createHearts, 500); // Small delay for a smooth transition
+        setTimeout(createHearts, 500);
     }
 }
 
 function showResult(answer, audioSrc) {
     playAudio(audioSrc);
-    // If they manage to click the final "No", break the hearts one last time
     if(answer === 'no') {
         breakHearts();
     }
@@ -98,8 +84,6 @@ function showResult(answer, audioSrc) {
     }
 }
 
-
-// --- UNCHANGED FUNCTIONS ---
 function setInitialNoButtonPosition() {
     const finalQuestionCard = document.querySelector('.final-question');
     const finalNoButton = finalQuestionCard.querySelector('.final-no');
@@ -113,17 +97,11 @@ function setInitialNoButtonPosition() {
     finalNoButton.style.transition = 'transform 0.1s ease-out, top 0.1s ease-out, left 0.1s ease-out';
 }
 
-// --- NEW CONTINUOUS RUNAWAY BUTTON LOGIC ---
-
-// 1. A variable to hold our interval
 let runawayInterval = null;
 
-// 2. A function to start the button running
 function startRunning(button) {
-    // If it's already running, do nothing
     if (runawayInterval) return;
 
-    // Start an interval that calls the move logic every 200 milliseconds
     runawayInterval = setInterval(() => {
         const container = button.closest('.buttons');
         if (!container) return;
@@ -139,19 +117,16 @@ function startRunning(button) {
 
         button.style.left = `${newX}px`;
         button.style.top = `${newY}px`;
-    }, 200); // The button will move every 0.2 seconds
+    }, 200);
 }
 
-// 3. A function to stop the button when the mouse leaves
 function stopRunning() {
     clearInterval(runawayInterval);
     runawayInterval = null;
 }
 
-
-// --- INITIALIZE ON PAGE LOAD ---
 document.addEventListener('DOMContentLoaded', () => {
-    createHearts(); // Create the initial set of hearts
+    createHearts();
     
     const finalQuestionCard = document.querySelector('.final-question');
     if (finalQuestionCard && !finalQuestionCard.classList.contains('hidden')) {
