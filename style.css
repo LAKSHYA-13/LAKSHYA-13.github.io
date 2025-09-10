@@ -1,38 +1,37 @@
 @import url('https://fonts.googleapis.com/css2?family=Pacifico&display=swap');
 
 body {
-    margin: 0;
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    background: linear-gradient(135deg, #ff9a9e 0%, #fad0c4 99%, #fad0c4 100%);
-    color: #333;
-    position: relative;
-    min-height: 100vh;
-    /* The "overflow: hidden;" line that was here has been REMOVED. */
+  margin: 0;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  background: linear-gradient(135deg, #ff9a9e 0%, #fad0c4 99%, #fad0c4 100%);
+  color: #333;
+  position: relative;
+  min-height: 100vh;
+  overflow: hidden; /* keeps hearts inside */
 }
 
 .container {
-    background-color: rgba(255, 255, 255, 0.9);
-    padding: 30px 40px;
-    border-radius: 20px;
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1), 0 0 40px rgba(233, 30, 99, 0.4);
-    text-align: center;
-    max-width: 600px;
-    width: 90%;
-    
-    /* New Centering Method */
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    z-index: 10;
+  background-color: rgba(255, 255, 255, 0.9);
+  padding: 30px 40px;
+  border-radius: 20px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1), 0 0 40px rgba(233, 30, 99, 0.4);
+  text-align: center;
+  max-width: 600px;
+  width: 90%;
+
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 10;
 }
 
 h1 {
-    font-family: 'Pacifico', cursive;
-    color: #e91e63;
-    margin-bottom: 30px;
-    font-size: 2.5em;
-    font-weight: normal;
+  font-family: 'Pacifico', cursive;
+  color: #e91e63;
+  margin-bottom: 30px;
+  font-size: 2.5em;
+  font-weight: normal;
 }
 
 .question-card, .result-card { transition: all 0.5s ease-in-out; }
@@ -54,76 +53,52 @@ button { padding: 12px 25px; font-size: 1.1em; border: none; border-radius: 30px
 .no-result h2 { color: #ff9800; }
 .question-gif { max-width: 80%; height: auto; border-radius: 10px; margin-top: 20px; margin-bottom: 20px; box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1); }
 
-
 /* --- FLOATING HEARTS STYLES --- */
 #heart-container {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    z-index: 1;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 1;
+  pointer-events: none; /* click-through */
 }
 
 .heart {
-    position: absolute;
-    width: 20px;
-    height: 20px;
-    background-color: #ff5e7b;
-    transform: rotate(-45deg);
-    animation: float 10s infinite ease-in-out, breathe 2s infinite ease-in-out;
+  position: absolute;
+  width: 20px;
+  height: 20px;
+  background-color: #ff5e7b;
+  transform: rotate(-45deg);
+  opacity: 0;
+  animation: float 8s linear forwards, breathe 2s infinite ease-in-out;
 }
 
 .heart::before,
 .heart::after {
-    content: '';
-    position: absolute;
-    width: 20px;
-    height: 20px;
-    background-color: #ff5e7b;
-    border-radius: 50%;
+  content: '';
+  position: absolute;
+  width: 20px;
+  height: 20px;
+  background-color: #ff5e7b;
+  border-radius: 50%;
 }
 
-.heart::before {
-    top: -10px;
-    left: 0;
-}
+.heart::before { top: -10px; left: 0; }
+.heart::after { top: 0; left: 10px; }
 
-.heart::after {
-    top: 0;
-    left: 10px;
-}
-
-/* BROKEN HEART STYLES */
-.heart.broken {
-    animation: fall 1.5s ease-in forwards;
-    background-color: #8c2a3e;
-}
-
-.heart.broken::before,
-.heart.broken::after {
-    background-color: #8c2a3e;
-}
-
-
-/* --- KEYFRAME ANIMATIONS --- */
 @keyframes float {
-    0% { transform: translateY(110vh) rotate(-45deg); }
-    100% { transform: translateY(-10vh) rotate(-45deg); }
+  0% {
+    transform: translateY(110vh) translateX(0) rotate(-45deg);
+    opacity: 1;
+  }
+  100% {
+    transform: translateY(-10vh) translateX(var(--drift)) rotate(-45deg);
+    opacity: 0;
+  }
 }
 
 @keyframes breathe {
-    0%, 100% { transform: scale(1) rotate(-45deg); }
-    50% { transform: scale(1.1) rotate(-45deg); }
-}
-
-@keyframes fall {
-    0% {
-        transform: translateY(var(--start-y)) rotate(var(--start-rot));
-        opacity: 1;
-    }
-    100% {
-        transform: translateY(110vh) rotate(720deg);
-        opacity: 0;
-    }
+  0%, 100% { transform: scale(1) rotate(-45deg); }
+  50% { transform: scale(1.1) rotate(-45deg); }
 }
