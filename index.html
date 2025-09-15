@@ -1,0 +1,381 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lakshya Verma | Valorant Champion</title>
+    <style>
+        /* --- Basic Setup & Google Font --- */
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap');
+
+        :root {
+            --primary-color: #6a11cb;
+            --secondary-color: #2575fc;
+            --bg-color: #f4f7fc;
+            --card-bg: #ffffff;
+            --text-color: #333;
+            --heading-color: #1a237e;
+            --white-color: #fff;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            line-height: 1.6;
+        }
+
+        .container {
+            max-width: 1100px;
+            margin: auto;
+            padding: 0 20px;
+        }
+
+        /* --- Header & Navigation --- */
+        header {
+            background: var(--white-color);
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            padding: 1rem 0;
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 100;
+        }
+
+        .header-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--heading-color);
+            text-decoration: none;
+        }
+
+        .nav-links {
+            list-style: none;
+            display: flex;
+        }
+
+        .nav-links li {
+            margin-left: 25px;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: var(--text-color);
+            font-weight: 600;
+            transition: color 0.3s ease;
+        }
+
+        .nav-links a:hover {
+            color: var(--primary-color);
+        }
+
+        /* --- Sections General Styling --- */
+        section {
+            padding: 120px 0 60px; /* Add top padding to account for fixed header */
+        }
+        
+        section h2 {
+            text-align: center;
+            font-size: 2.5rem;
+            color: var(--heading-color);
+            margin-bottom: 40px;
+            position: relative;
+        }
+
+        section h2::after {
+            content: '';
+            display: block;
+            width: 80px;
+            height: 4px;
+            background: linear-gradient(90deg, var(--primary-color), var(--secondary-color));
+            margin: 10px auto 0;
+            border-radius: 2px;
+        }
+
+        /* --- Home Section --- */
+        #home {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            min-height: 100vh;
+            background: linear-gradient(45deg, rgba(106, 17, 203, 0.8), rgba(37, 117, 252, 0.8)), url('https://source.unsplash.com/random/1600x900/?gaming,abstract') no-repeat center center/cover;
+            color: var(--white-color);
+        }
+
+        #home h1 {
+            font-size: 4rem;
+            margin-bottom: 10px;
+        }
+
+        #home h3 {
+            font-size: 1.5rem;
+            font-weight: 400;
+            margin-bottom: 30px;
+        }
+
+        .home-buttons a {
+            text-decoration: none;
+            color: var(--white-color);
+            background: transparent;
+            border: 2px solid var(--white-color);
+            padding: 12px 25px;
+            border-radius: 50px;
+            margin: 0 10px;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+
+        .home-buttons a:hover {
+            background: var(--white-color);
+            color: var(--primary-color);
+        }
+
+        /* --- About Section --- */
+        #about p {
+            max-width: 800px;
+            margin: 0 auto;
+            text-align: center;
+            font-size: 1.1rem;
+        }
+        
+        /* --- Achievements Section --- */
+        .achievement-image {
+            max-width: 700px;
+            margin: 0 auto 40px;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 10px 20px rgba(0,0,0,0.15);
+        }
+
+        .achievement-image img {
+            width: 100%;
+            display: block;
+        }
+
+        .achievements-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 30px;
+            margin-bottom: 40px;
+        }
+
+        .card {
+            background: var(--card-bg);
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.08);
+            text-align: center;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 25px rgba(0,0,0,0.12);
+        }
+        
+        .card h3 {
+            color: var(--primary-color);
+            margin-bottom: 10px;
+        }
+        
+        .card .prize {
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: var(--heading-color);
+            margin: 15px 0;
+        }
+
+        .card p {
+            font-size: 0.9rem;
+        }
+
+        .total-winnings {
+            text-align: center;
+            font-size: 1.5rem;
+            font-weight: 700;
+            margin-top: 40px;
+            color: var(--heading-color);
+        }
+        
+        /* --- Skills Section --- */
+         .skills-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 30px;
+        }
+
+        .skill-card {
+            background: var(--card-bg);
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.08);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .skill-card:hover {
+             transform: translateY(-10px);
+             box-shadow: 0 15px 25px rgba(0,0,0,0.12);
+        }
+
+        .skill-card h3 {
+            font-size: 1.2rem;
+            color: var(--heading-color);
+            margin-bottom: 15px;
+        }
+
+        /* --- Contact Section --- */
+        #contact .contact-info {
+            text-align: center;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+        
+        #contact .contact-info p {
+            margin-bottom: 20px;
+            font-size: 1.2rem;
+        }
+        
+        #contact .contact-info a {
+            color: var(--secondary-color);
+            text-decoration: none;
+            font-weight: 600;
+        }
+        #contact .contact-info a:hover {
+            text-decoration: underline;
+        }
+
+        /* --- Footer --- */
+        footer {
+            background: var(--heading-color);
+            color: var(--white-color);
+            text-align: center;
+            padding: 20px 0;
+        }
+
+        /* --- Responsive Design --- */
+        @media (max-width: 768px) {
+            #home h1 {
+                font-size: 2.5rem;
+            }
+            #home h3 {
+                font-size: 1.2rem;
+            }
+            .nav-links {
+                display: none; /* Simple hiding for mobile, can be replaced with a burger menu */
+            }
+            .achievements-grid, .skills-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+    </style>
+</head>
+<body>
+
+    <header>
+        <div class="header-container container">
+            <a href="#home" class="logo">Lakshya Verma</a>
+            <ul class="nav-links">
+                <li><a href="#home">Home</a></li>
+                <li><a href="#about">About</a></li>
+                <li><a href="#achievements">Achievements</a></li>
+                <li><a href="#skills">Skills</a></li>
+                <li><a href="#contact">Contact</a></li>
+            </ul>
+        </div>
+    </header>
+
+    <main>
+        <section id="home">
+            <h1>LAKSHYA VERMA</h1>
+            <h3>Three-Time Valorant Champion | Dedicated Student | Skilled Communicator</h3>
+            <div class="home-buttons">
+                <a href="#achievements">See My Achievements</a>
+                <a href="#contact">Contact Me</a>
+            </div>
+        </section>
+
+        <section id="about" class="container">
+            <h2>About Me</h2>
+            <p>Hello! I'm Lakshya Verma, a dedicated and ambitious student who has successfully completed the first year of my college studies. I thrive on challenges and am passionate about applying my skills in competitive environments, particularly in the world of esports. My journey is fueled by a desire to constantly grow, both academically and as a teammate. I believe in the power of hard work, strategy, and perseverance—principles that have guided my team and me to victory.</p>
+        </section>
+        
+        <section id="achievements" class="container">
+            <h2>A Winning Streak: Valorant Champion</h2>
+            
+            <div class="achievement-image">
+                <img src="winner.jpg" alt="Lakshya Verma's team winning the Origin 1.0 Valorant tournament">
+            </div>
+
+            <div class="achievements-grid">
+                <div class="card">
+                    <h3>First Victory: ORIGIN 1.0</h3>
+                    <div class="prize">₹7,000</div>
+                    <p>As part of a coordinated team, we dominated the competition in the "ORIGIN 1.0" Valorant tournament, securing the championship title.</p>
+                </div>
+                <div class="card">
+                    <h3>Second Victory: Defended Title</h3>
+                    <div class="prize">₹10,000</div>
+                    <p>We returned the following year to successfully defend our title, proving our consistency and superior strategy in the Valorant arena.</p>
+                </div>
+                <div class="card">
+                    <h3>Third Victory: Hat-Trick</h3>
+                    <div class="prize">₹15,000</div>
+                    <p>We solidified our legacy with a third consecutive championship, earning a 'hat-trick' and demonstrating our sustained excellence.</p>
+                </div>
+            </div>
+            <div class="total-winnings">
+                Total Winnings from Tournaments: ₹32,000
+            </div>
+        </section>
+
+        <section id="skills" class="container">
+            <h2>Skills & Certifications</h2>
+            <div class="skills-grid">
+                <div class="skill-card">
+                    <h3>✔️ Certificate in Public Speaking</h3>
+                    <p>Skilled in delivering clear, confident, and impactful presentations. Capable of engaging an audience and conveying ideas effectively.</p>
+                </div>
+                <div class="skill-card">
+                    <h3>✔️ Certificate in Social Gathering & Event Coordination</h3>
+                    <p>Proficient in planning and organizing social events. I have learned how to manage logistics and create a welcoming atmosphere for attendees.</p>
+                </div>
+                <div class="skill-card">
+                    <h3>✔️ Certificate in Computer Teaching</h3>
+                    <p>Equipped with the knowledge to instruct others on fundamental computer skills, making technology accessible and easy to understand.</p>
+                </div>
+            </div>
+        </section>
+        
+        <section id="contact" class="container">
+            <h2>Get In Touch</h2>
+            <div class="contact-info">
+                 <p>I am always open to new opportunities, collaborations, and conversations. Feel free to reach out to me.</p>
+                 <p><strong>Email:</strong> <a href="mailto:your.email@example.com">your.email@example.com</a></p>
+                 <p><strong>LinkedIn:</strong> <a href="#">Your LinkedIn Profile</a></p>
+            </div>
+        </section>
+
+    </main>
+
+    <footer>
+        <p>© 2025 Lakshya Verma. All Rights Reserved.</p>
+    </footer>
+
+</body>
+</html>
