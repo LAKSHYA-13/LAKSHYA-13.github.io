@@ -6,7 +6,7 @@
     </linearGradient>
   </defs>
   
-  <path d="M20 20 L20 80 L50 80" fill="none" stroke="url(#neonGradient)" stroke-width="12" stroke-linecap="round" stroke-linejoin="round"/>
+  <path d="M30 30 L30 70 L50 70" fill="none" stroke="url(#neonGradient)" stroke-width="10" stroke-linecap="round" stroke-linejoin="round"/>
   
-  <path d="M55 20 L70 80 L85 20" fill="none" stroke="url(#neonGradient)" stroke-width="12" stroke-linecap="round" stroke-linejoin="round"/>
+  <path d="M55 30 L65 70 L75 30" fill="none" stroke="url(#neonGradient)" stroke-width="10" stroke-linecap="round" stroke-linejoin="round"/>
 </svg>
