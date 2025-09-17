@@ -1,3 +1,7 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100">
-  <path d="M 20 85 L 20 15 L 50 15 L 75 65 L 100 15 L 120 15 L 80 85 Z" fill="#39ff14"/>
+  <path d="M20 85 V15 H55 M50 85 L75 15 L100 85" 
+        fill="none" 
+        stroke="#39ff14" 
+        stroke-width="20" 
+        stroke-linecap="butt"/>
 </svg>
