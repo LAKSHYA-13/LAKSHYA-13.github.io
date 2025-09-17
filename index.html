@@ -3,6 +3,12 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Personal portfolio for Lakshya Verma, a Computer Science student and champion esports player specializing in web technologies.">
+    
+    <link rel="icon" href="favicon.ico" type="image/x-icon">
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+
     <title>Lakshya Verma | CSIT Student & Esports Champion</title>
     <style>
         /* --- Basic Setup & Google Font --- */
@@ -52,7 +58,7 @@
         .header-container {
             display: flex;
             justify-content: space-between;
-            align-items.center;
+            align-items: center;
         }
 
         .logo {
@@ -80,6 +86,21 @@
 
         .nav-links a:hover {
             color: var(--primary-color);
+        }
+
+        /* ADDED: Hamburger Menu Styles */
+        .hamburger {
+            display: none;
+            cursor: pointer;
+        }
+
+        .bar {
+            display: block;
+            width: 25px;
+            height: 3px;
+            margin: 5px auto;
+            transition: all 0.3s ease-in-out;
+            background-color: var(--heading-color);
         }
 
         /* --- Sections General Styling --- */
@@ -113,7 +134,8 @@
             align-items: center;
             text-align: center;
             min-height: 100vh;
-            background: linear-gradient(45deg, rgba(106, 17, 203, 0.8), rgba(37, 117, 252, 0.8)), url('https://source.unsplash.com/random/1600x900/?tech,gaming') no-repeat center center/cover;
+            /* MODIFIED: Using a static, optimized background image */
+            background: linear-gradient(45deg, rgba(106, 17, 203, 0.8), rgba(37, 117, 252, 0.8)), url('https://picsum.photos/seed/tech/1600/900') no-repeat center center/cover;
             color: var(--white-color);
         }
 
@@ -245,6 +267,9 @@
             font-size: 1.2rem;
             color: var(--heading-color);
             margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            gap: 10px; /* ADDED: Spacing for icon */
         }
 
         /* --- Technical Skills Section --- */
@@ -272,6 +297,10 @@
             font-size: 1.3rem;
             color: var(--heading-color);
             margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px; /* ADDED: Spacing for icon */
         }
 
         /* --- Contact Section --- */
@@ -302,6 +331,17 @@
             text-align: center;
             padding: 20px 0;
         }
+        
+        /* ADDED: Scroll Animation Classes */
+        .hidden {
+            opacity: 0;
+            transform: translateY(20px);
+            transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+        }
+        .show {
+            opacity: 1;
+            transform: translateY(0);
+        }
 
         /* --- Responsive Design --- */
         @media (max-width: 992px) {
@@ -320,11 +360,45 @@
             #home h3 {
                 font-size: 1.2rem;
             }
-            .nav-links {
-                display: none;
-            }
             .tech-grid {
                 grid-template-columns: 1fr;
+            }
+            
+            /* MODIFIED: Responsive Navigation Logic */
+            .hamburger {
+                display: block;
+            }
+
+            .hamburger.active .bar:nth-child(2) {
+                opacity: 0;
+            }
+            .hamburger.active .bar:nth-child(1) {
+                transform: translateY(8px) rotate(45deg);
+            }
+            .hamburger.active .bar:nth-child(3) {
+                transform: translateY(-8px) rotate(-45deg);
+            }
+            
+            .nav-links {
+                position: fixed;
+                left: -100%;
+                top: 65px; /* Adjust based on your header height */
+                flex-direction: column;
+                background-color: var(--white-color);
+                width: 100%;
+                text-align: center;
+                transition: 0.3s;
+                box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+            }
+
+            .nav-links li {
+                margin: 0;
+                padding: 1rem 0;
+                border-top: 1px solid var(--bg-color);
+            }
+
+            .nav-links.active {
+                left: 0;
             }
         }
     </style>
@@ -334,14 +408,21 @@
     <header>
         <div class="header-container container">
             <a href="#home" class="logo">Lakshya Verma</a>
-            <ul class="nav-links">
-                <li><a href="#home">Home</a></li>
-                <li><a href="#about">About</a></li>
-                <li><a href="#achievements">Achievement</a></li>
-                <li><a href="#skills">Certifications</a></li>
-                <li><a href="#technical-skills">Tech Skills</a></li>
-                <li><a href="#contact">Contact</a></li>
-            </ul>
+            <nav class="navbar">
+                <ul class="nav-links">
+                    <li><a href="#home">Home</a></li>
+                    <li><a href="#about">About</a></li>
+                    <li><a href="#achievements">Achievement</a></li>
+                    <li><a href="#skills">Certifications</a></li>
+                    <li><a href="#technical-skills">Tech Skills</a></li>
+                    <li><a href="#contact">Contact</a></li>
+                </ul>
+            </nav>
+            <div class="hamburger">
+                <span class="bar"></span>
+                <span class="bar"></span>
+                <span class="bar"></span>
+            </div>
         </div>
     </header>
 
@@ -360,7 +441,7 @@
             <div class="about-image">
                 <img src="images/profile-pic.jpg" alt="A photo of Lakshya Verma">
             </div>
-            <p>Hello! I'm Lakshya Verma, a passionate student pursuing my degree in Computer Science and Information Technology (CSIT) at the Acropolis Institute of Technology and Research, Indore. Beyond my academics, I am deeply involved in the competitive esports scene, where I thrive on strategy, collaboration, and performance under pressure. As a dedicated team player, I believe in applying the same focus and analytical skills from my studies to achieve success in the gaming arena.</p>
+            <p>Hello! I'm Lakshya Verma, a passionate student pursuing my degree in Computer Science and Information Technology (CSIT) at the Acropolis Institute of Technology and Research, Indore. Beyond my academics, I am deeply involved in the competitive esports scene. This high-pressure environment has honed my ability to <strong>collaborate effectively with a team</strong>, <strong>think strategically under tight deadlines</strong>, and <strong>communicate clearly</strong> to solve complex problems—skills I am eager to apply in the tech world.</p>
         </section>
         
         <section id="achievements" class="container">
@@ -381,15 +462,15 @@
             <h2>Certifications</h2>
             <div class="skills-grid">
                 <div class="skill-card">
-                    <h3>✔️ Certificate in Public Speaking</h3>
+                     <h3><i class="fas fa-microphone"></i> Certificate in Public Speaking</h3>
                     <p>Skilled in delivering clear, confident, and impactful presentations. Capable of engaging an audience and conveying ideas effectively.</p>
                 </div>
                 <div class="skill-card">
-                    <h3>✔️ Certificate in Social Gathering & Event Coordination</h3>
+                    <h3><i class="fas fa-users"></i> Certificate in Social Gathering & Event Coordination</h3>
                     <p>Proficient in planning and organizing social events. I have learned how to manage logistics and create a welcoming atmosphere for attendees.</p>
                 </div>
                 <div class="skill-card">
-                    <h3>✔️ Certificate in Computer Teaching</h3>
+                    <h3><i class="fas fa-chalkboard-teacher"></i> Certificate in Computer Teaching</h3>
                     <p>Equipped with the knowledge to instruct others on fundamental computer skills, making technology accessible and easy to understand.</p>
                 </div>
             </div>
@@ -399,19 +480,19 @@
             <h2>Technical Skills</h2>
             <div class="tech-grid">
                 <div class="tech-card">
-                    <h3>HTML</h3>
+                    <h3><i class="fab fa-html5"></i> HTML</h3>
                     <p>Proficient in structuring web content and building the foundational layout of websites.</p>
                 </div>
                 <div class="tech-card">
-                    <h3>C++</h3>
+                    <h3><i class="fas fa-code"></i> C++</h3>
                     <p>Knowledge of core programming concepts, including object-oriented principles, using C++.</p>
                 </div>
                 <div class="tech-card">
-                    <h3>JavaScript</h3>
+                    <h3><i class="fab fa-js"></i> JavaScript</h3>
                     <p>Familiar with JavaScript fundamentals to create interactive and dynamic web elements.</p>
                 </div>
                 <div class="tech-card">
-                    <h3>Python</h3>
+                    <h3><i class="fab fa-python"></i> Python</h3>
                     <p>Experience with Python for scripting and foundational application development.</p>
                 </div>
             </div>
@@ -430,6 +511,40 @@
     <footer>
         <p>© 2025 Lakshya Verma. All Rights Reserved.</p>
     </footer>
+
+    <script>
+        // --- Mobile Menu Logic ---
+        const hamburger = document.querySelector(".hamburger");
+        const navLinks = document.querySelector(".nav-links");
+
+        hamburger.addEventListener("click", () => {
+            hamburger.classList.toggle("active");
+            navLinks.classList.toggle("active");
+        });
+
+        // Close menu when a link is clicked for smooth navigation
+        document.querySelectorAll(".nav-links li a").forEach(link => {
+            link.addEventListener("click", () => {
+                hamburger.classList.remove("active");
+                navLinks.classList.remove("active");
+            });
+        });
+
+        // --- Scroll Animation Logic ---
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach((entry) => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('show');
+                }
+            });
+        });
+
+        const hiddenElements = document.querySelectorAll('.card, .skill-card, .tech-card, #about p, .about-image, .achievement-image');
+        hiddenElements.forEach((el) => {
+            el.classList.add('hidden'); // Add hidden class by default
+            observer.observe(el);
+        });
+    </script>
 
 </body>
 </html>
