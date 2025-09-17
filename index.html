@@ -4,24 +4,24 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="Personal portfolio for Lakshya Verma, a Computer Science student and champion esports player specializing in web technologies.">
-    
     <link rel="icon" href="favicon.ico" type="image/x-icon">
     
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
 
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto+Mono:wght@400;700&display=swap" rel="stylesheet">
+
     <title>Lakshya Verma | CSIT Student & Esports Champion</title>
     <style>
-        /* --- Basic Setup & Google Font --- */
-        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap');
-
+        /* --- MODIFIED: New Dark Theme Color Palette & Font --- */
         :root {
-            --primary-color: #6a11cb;
-            --secondary-color: #2575fc;
-            --bg-color: #f4f7fc;
-            --card-bg: #ffffff;
-            --text-color: #333;
-            --heading-color: #1a237e;
-            --white-color: #fff;
+            --primary-color: #39ff14; /* Neon Green Accent */
+            --bg-color: #111111;      /* Dark Background */
+            --card-bg: #1a1a1a;      /* Slightly Lighter Card Background */
+            --text-color: #e0e0e0;   /* Off-white text */
+            --heading-color: #ffffff;/* Pure White for Headings */
+            --border-color: #333333; /* Border color for cards */
         }
 
         * {
@@ -32,11 +32,35 @@
         }
 
         body {
-            font-family: 'Poppins', sans-serif;
+            /* MODIFIED: New font and colors */
+            font-family: 'Roboto Mono', monospace;
             background-color: var(--bg-color);
             color: var(--text-color);
             line-height: 1.6;
         }
+
+        /* ADDED: Custom Cursor Styles */
+        .cursor {
+            width: 20px;
+            height: 20px;
+            border: 2px solid var(--primary-color);
+            border-radius: 50%;
+            position: fixed;
+            pointer-events: none;
+            transform: translate(-50%, -50%);
+            transition: width 0.2s, height 0.2s;
+            z-index: 9999;
+        }
+        
+        body:hover {
+            cursor: none;
+        }
+        
+        .cursor-grow {
+            width: 40px;
+            height: 40px;
+        }
+
 
         .container {
             max-width: 1100px;
@@ -46,8 +70,10 @@
 
         /* --- Header & Navigation --- */
         header {
-            background: var(--white-color);
-            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            /* MODIFIED: Subtle dark theme header */
+            background: rgba(17, 17, 17, 0.8);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid var(--border-color);
             padding: 1rem 0;
             position: fixed;
             width: 100%;
@@ -67,6 +93,10 @@
             color: var(--heading-color);
             text-decoration: none;
         }
+        .logo:hover {
+            color: var(--primary-color);
+            transition: color 0.3s;
+        }
 
         .nav-links {
             list-style: none;
@@ -80,7 +110,7 @@
         .nav-links a {
             text-decoration: none;
             color: var(--text-color);
-            font-weight: 600;
+            font-weight: 400; /* Regular weight looks better with mono font */
             transition: color 0.3s ease;
         }
 
@@ -88,7 +118,6 @@
             color: var(--primary-color);
         }
 
-        /* ADDED: Hamburger Menu Styles */
         .hamburger {
             display: none;
             cursor: pointer;
@@ -97,7 +126,7 @@
         .bar {
             display: block;
             width: 25px;
-            height: 3px;
+            height: 2px; /* Thinner bars for minimalist look */
             margin: 5px auto;
             transition: all 0.3s ease-in-out;
             background-color: var(--heading-color);
@@ -105,7 +134,11 @@
 
         /* --- Sections General Styling --- */
         section {
-            padding: 120px 0 60px; /* Add top padding to account for fixed header */
+            padding: 120px 0 60px;
+            border-bottom: 1px solid var(--border-color);
+        }
+        section:last-of-type {
+            border-bottom: none;
         }
         
         section h2 {
@@ -116,14 +149,15 @@
             position: relative;
         }
 
+        /* MODIFIED: Thin underline for headings */
         section h2::after {
             content: '';
             display: block;
-            width: 80px;
-            height: 4px;
-            background: linear-gradient(90deg, var(--primary-color), var(--secondary-color));
+            width: 60px;
+            height: 2px;
+            background: var(--primary-color);
             margin: 10px auto 0;
-            border-radius: 2px;
+            border-radius: 0;
         }
 
         /* --- Home Section --- */
@@ -134,287 +168,206 @@
             align-items: center;
             text-align: center;
             min-height: 100vh;
-            /* MODIFIED: Using a static, optimized background image */
-            background: linear-gradient(45deg, rgba(106, 17, 203, 0.8), rgba(37, 117, 252, 0.8)), url('https://picsum.photos/seed/tech/1600/900') no-repeat center center/cover;
-            color: var(--white-color);
+            background: var(--bg-color);
+            color: var(--heading-color);
+            overflow: hidden; /* Important for ticker */
+            border-bottom: none;
         }
 
         #home h1 {
             font-size: 4rem;
             margin-bottom: 10px;
+            color: var(--primary-color);
         }
 
         #home h3 {
             font-size: 1.5rem;
             font-weight: 400;
-            margin-bottom: 30px;
+            margin-bottom: 40px;
+            color: var(--text-color);
         }
+        
+        /* ADDED: Ticker/scrolling text */
+        .ticker-wrap {
+            width: 100%;
+            position: absolute;
+            bottom: 50px;
+        }
+        .ticker {
+            display: flex;
+            white-space: nowrap;
+            animation: ticker-animation 40s linear infinite;
+        }
+        .ticker span {
+            font-size: 1.2rem;
+            color: var(--border-color);
+            padding: 0 2rem;
+        }
+        @keyframes ticker-animation {
+            0% { transform: translateX(0); }
+            100% { transform: translateX(-100%); }
+        }
+
 
         .home-buttons a {
             text-decoration: none;
-            color: var(--white-color);
+            color: var(--primary-color);
             background: transparent;
-            border: 2px solid var(--white-color);
-            padding: 12px 25px;
-            border-radius: 50px;
+            border: 2px solid var(--primary-color);
+            padding: 12px 30px;
+            border-radius: 5px; /* Sharper edges */
             margin: 0 10px;
-            font-weight: 600;
+            font-weight: 700;
             transition: all 0.3s ease;
         }
 
         .home-buttons a:hover {
-            background: var(--white-color);
-            color: var(--primary-color);
+            background: var(--primary-color);
+            color: var(--bg-color);
         }
 
         /* --- About Section --- */
-        #about {
-            text-align: center;
-        }
+        #about { text-align: center; }
+        
         #about .about-image {
-            width: 220px;
-            height: 220px;
+            width: 180px; /* Slightly smaller */
+            height: 180px;
             border-radius: 50%;
-            overflow: hidden;
             margin: 0 auto 30px;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
-            border: 5px solid var(--primary-color);
+            border: 3px solid var(--primary-color);
+            padding: 5px; /* Inner padding effect */
         }
         #about .about-image img {
             width: 100%;
             height: 100%;
             object-fit: cover;
-            object-position: center 25%;
+            border-radius: 50%;
         }
         #about p {
-            max-width: 800px;
+            max-width: 700px;
             margin: 0 auto;
             font-size: 1.1rem;
         }
         
+        /* --- General Card Styles --- */
+        /* MODIFIED: From shadow to border */
+        .card, .skill-card, .tech-card {
+            background: var(--card-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 5px;
+            padding: 30px;
+            transition: border-color 0.3s ease, transform 0.3s ease;
+        }
+        .card:hover, .skill-card:hover, .tech-card:hover {
+            border-color: var(--primary-color);
+            transform: translateY(-5px);
+        }
+
         /* --- Achievements Section --- */
         .achievement-image {
             max-width: 700px;
             margin: 0 auto 40px;
-            border-radius: 10px;
-            overflow: hidden;
-            box-shadow: 0 10px 20px rgba(0,0,0,0.15);
+            border-radius: 5px;
+            border: 1px solid var(--border-color);
         }
-
-        .achievement-image img {
-            width: 100%;
-            display: block;
-        }
-
-        .achievements-grid {
-            display: flex;
-            justify-content: center;
-            margin-bottom: 40px;
-        }
-
-        .card {
-            background: var(--card-bg);
-            padding: 30px;
-            border-radius: 10px;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.08);
-            text-align: center;
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
-            max-width: 400px;
-        }
-
-        .card:hover {
-            transform: translateY(-10px);
-            box-shadow: 0 15px 25px rgba(0,0,0,0.12);
-        }
+        .achievement-image img { width: 100%; display: block; }
+        .achievements-grid { display: flex; justify-content: center; }
         
-        .card h3 {
-            color: var(--primary-color);
-            margin-bottom: 10px;
-        }
-        
+        .card { max-width: 400px; text-align: center; }
+        .card h3 { color: var(--primary-color); margin-bottom: 10px; }
         .card .prize {
-            font-size: 1.8rem;
+            font-size: 2rem;
             font-weight: 700;
             color: var(--heading-color);
             margin: 15px 0;
         }
+        .card p { font-size: 0.9rem; }
 
-        .card p {
-            font-size: 0.9rem;
-        }
-        
-        /* --- Skills Section --- */
+        /* --- Skills & Tech Skills --- */
          .skills-grid {
             display: grid;
-            grid-template-columns: repeat(3, 1fr);
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
             gap: 30px;
         }
-
-        .skill-card {
-            background: var(--card-bg);
-            padding: 30px;
-            border-radius: 10px;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.08);
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        .tech-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
         }
-
-        .skill-card:hover {
-             transform: translateY(-10px);
-             box-shadow: 0 15px 25px rgba(0,0,0,0.12);
-        }
-
-        .skill-card h3 {
+        
+        .skill-card h3, .tech-card h3 {
             font-size: 1.2rem;
             color: var(--heading-color);
             margin-bottom: 15px;
             display: flex;
             align-items: center;
-            gap: 10px; /* ADDED: Spacing for icon */
+            gap: 10px;
         }
+        .tech-card h3 { justify-content: center; }
+        .tech-card { text-align: center; }
+        .tech-card i { color: var(--primary-color); }
 
-        /* --- Technical Skills Section --- */
-        .tech-grid {
-            display: grid;
-            grid-template-columns: repeat(4, 1fr);
-            gap: 20px;
-        }
-
-        .tech-card {
-            background: var(--card-bg);
-            padding: 25px;
-            border-radius: 10px;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.08);
-            text-align: center;
-            border-top: 4px solid var(--secondary-color);
-            transition: transform 0.3s ease;
-        }
-        
-        .tech-card:hover {
-            transform: translateY(-5px);
-        }
-
-        .tech-card h3 {
-            font-size: 1.3rem;
-            color: var(--heading-color);
-            margin-bottom: 10px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 10px; /* ADDED: Spacing for icon */
-        }
 
         /* --- Contact Section --- */
-        #contact .contact-info {
-            text-align: center;
-            max-width: 600px;
-            margin: 0 auto;
-        }
-        
-        #contact .contact-info p {
-            margin-bottom: 20px;
-            font-size: 1.2rem;
-        }
-        
+        #contact .contact-info { text-align: center; max-width: 600px; margin: 0 auto; }
+        #contact .contact-info p { margin-bottom: 20px; font-size: 1.2rem; }
         #contact .contact-info a {
-            color: var(--secondary-color);
+            color: var(--primary-color);
             text-decoration: none;
-            font-weight: 600;
+            font-weight: 700;
         }
-        #contact .contact-info a:hover {
-            text-decoration: underline;
-        }
+        #contact .contact-info a:hover { text-decoration: underline; }
 
         /* --- Footer --- */
         footer {
-            background: var(--heading-color);
-            color: var(--white-color);
+            background: var(--card-bg);
+            color: var(--text-color);
             text-align: center;
             padding: 20px 0;
-        }
-        
-        /* ADDED: Scroll Animation Classes */
-        .hidden {
-            opacity: 0;
-            transform: translateY(20px);
-            transition: opacity 0.6s ease-out, transform 0.6s ease-out;
-        }
-        .show {
-            opacity: 1;
-            transform: translateY(0);
+            font-size: 0.9rem;
+            border-top: 1px solid var(--border-color);
         }
 
         /* --- Responsive Design --- */
-        @media (max-width: 992px) {
-            .skills-grid {
-                grid-template-columns: 1fr;
-            }
-            .tech-grid {
-                grid-template-columns: repeat(2, 1fr);
-            }
-        }
-
         @media (max-width: 768px) {
-            #home h1 {
-                font-size: 2.5rem;
-            }
-            #home h3 {
-                font-size: 1.2rem;
-            }
-            .tech-grid {
-                grid-template-columns: 1fr;
-            }
-            
-            /* MODIFIED: Responsive Navigation Logic */
-            .hamburger {
-                display: block;
-            }
+            #home h1 { font-size: 2.5rem; }
+            #home h3 { font-size: 1.2rem; }
 
-            .hamburger.active .bar:nth-child(2) {
-                opacity: 0;
-            }
-            .hamburger.active .bar:nth-child(1) {
-                transform: translateY(8px) rotate(45deg);
-            }
-            .hamburger.active .bar:nth-child(3) {
-                transform: translateY(-8px) rotate(-45deg);
-            }
+            .hamburger { display: block; }
+            .hamburger.active .bar:nth-child(2) { opacity: 0; }
+            .hamburger.active .bar:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+            .hamburger.active .bar:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
             
             .nav-links {
                 position: fixed;
                 left: -100%;
-                top: 65px; /* Adjust based on your header height */
+                top: 60px;
                 flex-direction: column;
-                background-color: var(--white-color);
+                background-color: var(--bg-color);
+                border-bottom: 1px solid var(--border-color);
+                border-right: 1px solid var(--border-color);
                 width: 100%;
                 text-align: center;
                 transition: 0.3s;
-                box-shadow: 0 4px 10px rgba(0,0,0,0.1);
             }
-
-            .nav-links li {
-                margin: 0;
-                padding: 1rem 0;
-                border-top: 1px solid var(--bg-color);
-            }
-
-            .nav-links.active {
-                left: 0;
-            }
+            .nav-links li { margin: 0; padding: 1.2rem 0; border-top: 1px solid var(--border-color); }
+            .nav-links li:first-child { border-top: none; }
+            .nav-links.active { left: 0; }
         }
     </style>
 </head>
 <body>
+    <div class="cursor"></div>
 
     <header>
         <div class="header-container container">
-            <a href="#home" class="logo">Lakshya Verma</a>
+            <a href="#home" class="logo">Lakshya.dev</a>
             <nav class="navbar">
                 <ul class="nav-links">
                     <li><a href="#home">Home</a></li>
                     <li><a href="#about">About</a></li>
-                    <li><a href="#achievements">Achievement</a></li>
-                    <li><a href="#skills">Certifications</a></li>
-                    <li><a href="#technical-skills">Tech Skills</a></li>
+                    <li><a href="#achievements">Work</a></li>
+                    <li><a href="#skills">Skills</a></li>
                     <li><a href="#contact">Contact</a></li>
                 </ul>
             </nav>
@@ -428,11 +381,31 @@
 
     <main>
         <section id="home">
+            <h3>CSIT Student & Esports Champion</h3>
             <h1>LAKSHYA VERMA</h1>
-            <h3>CSIT Student | Valorant Tournament Champion | Skilled Communicator</h3>
+            
             <div class="home-buttons">
-                <a href="#achievements">See My Achievement</a>
-                <a href="#contact">Contact Me</a>
+                <a href="#achievements">See My Work</a>
+                <a href="#contact">Let's Talk</a>
+            </div>
+
+            <div class="ticker-wrap">
+                <div class="ticker">
+                    <span>HTML</span>
+                    <span>C++</span>
+                    <span>JAVASCRIPT</span>
+                    <span>PYTHON</span>
+                    <span>TEAMWORK</span>
+                    <span>STRATEGY</span>
+                    <span>COMMUNICATION</span>
+                    <span>HTML</span>
+                    <span>C++</span>
+                    <span>JAVASCRIPT</span>
+                    <span>PYTHON</span>
+                    <span>TEAMWORK</span>
+                    <span>STRATEGY</span>
+                    <span>COMMUNICATION</span>
+                </div>
             </div>
         </section>
 
@@ -441,78 +414,81 @@
             <div class="about-image">
                 <img src="images/profile-pic.jpg" alt="A photo of Lakshya Verma">
             </div>
-            <p>Hello! I'm Lakshya Verma, a passionate student pursuing my degree in Computer Science and Information Technology (CSIT) at the Acropolis Institute of Technology and Research, Indore. Beyond my academics, I am deeply involved in the competitive esports scene. This high-pressure environment has honed my ability to <strong>collaborate effectively with a team</strong>, <strong>think strategically under tight deadlines</strong>, and <strong>communicate clearly</strong> to solve complex problems—skills I am eager to apply in the tech world.</p>
+            <p>I'm a passionate developer and problem-solver with a background in competitive gaming. This high-pressure environment has honed my ability to collaborate effectively, think strategically under deadlines, and communicate clearly—skills I bring to every line of code I write.</p>
         </section>
         
         <section id="achievements" class="container">
-            <h2>Esports Achievement</h2>
+            <h2>Featured Project</h2>
             <div class="achievement-image">
-                <img src="images/tournament-win.jpg" alt="Lakshya Verma's team winning the Origin 1.0 Valorant tournament">
+                <img src="images/tournament-win.jpg" alt="Lakshya Verma's team winning a tournament">
             </div>
             <div class="achievements-grid">
                 <div class="card">
-                    <h3>Champion: ORIGIN 1.0</h3>
-                    <div class="prize">₹7,000</div>
-                    <p>As part of a coordinated team, we proudly secured the first-place championship title in the "ORIGIN 1.0" Valorant tournament.</p>
+                    <h3>Esports Champion: ORIGIN 1.0</h3>
+                    <div class="prize">₹7,000 Prize</div>
+                    <p>Led a coordinated team to secure the first-place championship title. This project showcases my skills in leadership, real-time strategy, and performing under pressure.</p>
                 </div>
             </div>
         </section>
 
         <section id="skills" class="container">
-            <h2>Certifications</h2>
+            <h2>Core Competencies</h2>
             <div class="skills-grid">
                 <div class="skill-card">
-                     <h3><i class="fas fa-microphone"></i> Certificate in Public Speaking</h3>
-                    <p>Skilled in delivering clear, confident, and impactful presentations. Capable of engaging an audience and conveying ideas effectively.</p>
+                    <h3><i class="fas fa-microphone"></i> Public Speaking</h3>
+                    <p>Skilled in delivering clear, confident, and impactful presentations to engage any audience and convey ideas effectively.</p>
                 </div>
                 <div class="skill-card">
-                    <h3><i class="fas fa-users"></i> Certificate in Social Gathering & Event Coordination</h3>
-                    <p>Proficient in planning and organizing social events. I have learned how to manage logistics and create a welcoming atmosphere for attendees.</p>
+                    <h3><i class="fas fa-users"></i> Event Coordination</h3>
+                    <p>Proficient in planning and organizing events, managing logistics, and creating a welcoming atmosphere for attendees.</p>
                 </div>
                 <div class="skill-card">
-                    <h3><i class="fas fa-chalkboard-teacher"></i> Certificate in Computer Teaching</h3>
+                    <h3><i class="fas fa-chalkboard-teacher"></i> Technical Instruction</h3>
                     <p>Equipped with the knowledge to instruct others on fundamental computer skills, making technology accessible and easy to understand.</p>
                 </div>
             </div>
         </section>
 
         <section id="technical-skills" class="container">
-            <h2>Technical Skills</h2>
+            <h2>Tech Stack</h2>
             <div class="tech-grid">
-                <div class="tech-card">
-                    <h3><i class="fab fa-html5"></i> HTML</h3>
-                    <p>Proficient in structuring web content and building the foundational layout of websites.</p>
-                </div>
-                <div class="tech-card">
-                    <h3><i class="fas fa-code"></i> C++</h3>
-                    <p>Knowledge of core programming concepts, including object-oriented principles, using C++.</p>
-                </div>
-                <div class="tech-card">
-                    <h3><i class="fab fa-js"></i> JavaScript</h3>
-                    <p>Familiar with JavaScript fundamentals to create interactive and dynamic web elements.</p>
-                </div>
-                <div class="tech-card">
-                    <h3><i class="fab fa-python"></i> Python</h3>
-                    <p>Experience with Python for scripting and foundational application development.</p>
-                </div>
+                <div class="tech-card"><h3><i class="fab fa-html5"></i> HTML</h3></div>
+                <div class="tech-card"><h3><i class="fas fa-code"></i> C++</h3></div>
+                <div class="tech-card"><h3><i class="fab fa-js"></i> JavaScript</h3></div>
+                <div class="tech-card"><h3><i class="fab fa-python"></i> Python</h3></div>
             </div>
         </section>
         
         <section id="contact" class="container">
             <h2>Get In Touch</h2>
             <div class="contact-info">
-                 <p>I am always open to new opportunities, collaborations, and conversations. Feel free to reach out to me.</p>
-                 <p><strong>Email:</strong> <a href="mailto:vlakshya566@gmail.com">vlakshya566@gmail.com</a></p>
-                 <p><strong>LinkedIn:</strong> <a href="https://www.linkedin.com/in/lakshya-verma-415006344/" target="_blank" rel="noopener noreferrer">linkedin.com/in/lakshya-verma</a></p>
+                 <p>Open to new opportunities and collaborations. Let's build something great together.</p>
+                 <p><a href="mailto:vlakshya566@gmail.com">vlakshya566@gmail.com</a></p>
+                 <p><a href="https://www.linkedin.com/in/lakshya-verma-415006344/" target="_blank" rel="noopener noreferrer">LinkedIn</a></p>
             </div>
         </section>
     </main>
 
     <footer>
-        <p>© 2025 Lakshya Verma. All Rights Reserved.</p>
+        <p>© 2025 Lakshya Verma. Built from scratch.</p>
     </footer>
 
     <script>
+        // --- Custom Cursor Logic ---
+        const cursor = document.querySelector('.cursor');
+        document.addEventListener('mousemove', e => {
+            cursor.setAttribute('style', `top: ${e.pageY}px; left: ${e.pageX}px;`);
+        });
+
+        document.querySelectorAll('a, button, .card, .skill-card, .tech-card').forEach(elem => {
+            elem.addEventListener('mouseenter', () => {
+                cursor.classList.add('cursor-grow');
+            });
+            elem.addEventListener('mouseleave', () => {
+                cursor.classList.remove('cursor-grow');
+            });
+        });
+
         // --- Mobile Menu Logic ---
         const hamburger = document.querySelector(".hamburger");
         const navLinks = document.querySelector(".nav-links");
@@ -522,27 +498,11 @@
             navLinks.classList.toggle("active");
         });
 
-        // Close menu when a link is clicked for smooth navigation
         document.querySelectorAll(".nav-links li a").forEach(link => {
             link.addEventListener("click", () => {
                 hamburger.classList.remove("active");
                 navLinks.classList.remove("active");
             });
-        });
-
-        // --- Scroll Animation Logic ---
-        const observer = new IntersectionObserver((entries) => {
-            entries.forEach((entry) => {
-                if (entry.isIntersecting) {
-                    entry.target.classList.add('show');
-                }
-            });
-        });
-
-        const hiddenElements = document.querySelectorAll('.card, .skill-card, .tech-card, #about p, .about-image, .achievement-image');
-        hiddenElements.forEach((el) => {
-            el.classList.add('hidden'); // Add hidden class by default
-            observer.observe(el);
         });
     </script>
 
