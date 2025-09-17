@@ -237,7 +237,7 @@
             height: 100%;
             object-fit: cover;
             border-radius: 50%;
-            object-position: top; /* ADDED: This will push the focus to the top of the image */
+            object-position: top;
         }
         #about p {
             max-width: 700px;
@@ -471,10 +471,12 @@
         // --- Custom Cursor Logic ---
         const cursor = document.querySelector('.cursor');
         document.addEventListener('mousemove', e => {
-            cursor.setAttribute('style', `top: ${e.pageY}px; left: ${e.pageX}px;`);
+            // MODIFIED: Use clientX/Y for positioning relative to the screen
+            cursor.style.left = e.clientX + 'px';
+            cursor.style.top = e.clientY + 'px';
         });
 
-        document.querySelectorAll('a, button, .card, .skill-card, .tech-card').forEach(elem => {
+        document.querySelectorAll('a, button, .card, .skill-card, .tech-card, .logo, .hamburger').forEach(elem => {
             elem.addEventListener('mouseenter', () => {
                 cursor.classList.add('cursor-grow');
             });
